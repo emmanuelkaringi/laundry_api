@@ -72,8 +72,7 @@ app.post('/paypal', async (req, res) => {
     }
   });
 
-app.get("/success", (req, res) => {
-    // res.send("Success");
+  app.get("/success", (req, res) => {
     var PayerID = req.query.PayerID;
     var paymentId = req.query.paymentId;
     var execute_payment_json = {
@@ -82,25 +81,28 @@ app.get("/success", (req, res) => {
             {
                 amount: {
                     currency: "USD",
-                    total: "1.00"
+                    total: "1.00" // This needs to be adjusted according to your actual payment amount
                 }
             }
         ]
     };
 
-    paypal.payment.execute(paymentId, execute_payment_json, function(
-        error,
-        payment
-    ) {
+    paypal.payment.execute(paymentId, execute_payment_json, function(error, payment) {
         if (error) {
             console.log(error.response);
             throw error;
         } else {
             console.log("Get Payment Response");
             console.log(JSON.stringify(payment));
-            res.render("success");
+            // Assuming payment was successful, navigate to the order successful page
+            res.redirect("/order-success"); // Redirect to the order successful page
         }
     });
+});
+
+// Define route for order successful page
+app.get("/order-success", (req, res) => {
+    res.render("order-success"); // Render the order successful page
 });
 
 app.get("cancel", (req, res) => {
