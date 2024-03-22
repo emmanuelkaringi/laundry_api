@@ -63,8 +63,8 @@ app.post('/paypal', async (req, res) => {
           res.status(500).json({ error: 'Error creating PayPal payment' });
         } else {
           console.log('Create Payment Response:', payment);
-          res.redirect(payment.links[1].href);
-          //res.json({ paypalUrl: payment.links[1].href });
+          //res.redirect(payment.links[1].href);
+          res.json({ paypalUrl: payment.links[1].href });
         }
       });
     } catch (error) {
