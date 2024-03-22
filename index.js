@@ -81,7 +81,7 @@ app.post('/paypal', async (req, res) => {
             {
                 amount: {
                     currency: "USD",
-                    total: "1.00" // This needs to be adjusted according to your actual payment amount
+                    total: total.toString()
                 }
             }
         ]
