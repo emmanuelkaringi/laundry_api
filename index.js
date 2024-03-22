@@ -33,7 +33,7 @@ app.post('/paypal', async (req, res) => {
           payment_method: 'paypal',
         },
         redirect_urls: {
-          return_url: 'https://laundry-api-8guz.onrender.com/success',
+          return_url: `https://laundry-api-8guz.onrender.com/success?total=${total}`,
           cancel_url: 'https://laundry-api-8guz.onrender.com/cancel',
         },
         transactions: [
@@ -63,8 +63,9 @@ app.post('/paypal', async (req, res) => {
           res.status(500).json({ error: 'Error creating PayPal payment' });
         } else {
           console.log('Create Payment Response:', payment);
+          res.redirect(`/success?paymentId=${payment.id}&PayerID=${payment.payer.payer_info.payer_id}&total=${total}`);
           //res.redirect(payment.links[1].href);
-          res.json({ paypalUrl: payment.links[1].href });
+          //res.json({ paypalUrl: payment.links[1].href });
         }
       });
     } catch (error) {
