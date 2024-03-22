@@ -100,10 +100,10 @@ app.post('/paypal', async (req, res) => {
 
 // Define route for order successful page
 app.get("/order-success", (req, res) => {
-  res.json({ success: true });  // Render the order successful page
+  res.render("success");
 });
 
-app.get("cancel", (req, res) => {
+app.get("/cancel", (req, res) => {
     res.render("cancel");
 });
 
