@@ -43,7 +43,7 @@ app.post("/paypal", (req, res) => {
                       {
                         name: "item",
                         sku: "item",
-                        price: total, // Use the total amount here
+                        price: total.toString(), // Use the total amount here
                         currency: "USD",
                         quantity: 1
                       }
@@ -51,7 +51,7 @@ app.post("/paypal", (req, res) => {
               },
               amount: {
                   currency: "USD",
-                  total: total
+                  total: total.toString()
               },
               description: "This is the payment description."
           }
