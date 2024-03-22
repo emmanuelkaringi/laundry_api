@@ -41,16 +41,17 @@ app.post("/paypal", async (req, res) => {
               item_list: {
                   items: [
                       {
-                        name: 'Order Payment',
-                        price: total, // Convert to string
-                        currency: 'USD',
-                        quantity: 1,
+                        name: "Order Payment",
+                            sku: "item",
+                            price: total,
+                            currency: "USD",
+                            quantity: 1
                       }
                   ]
               },
               amount: {
-                  currency: "USD",
-                  total: total
+                currency: "USD",
+                total: total
               },
               description: 'Payment for order',
           }
