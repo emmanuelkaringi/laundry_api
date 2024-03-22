@@ -63,9 +63,8 @@ app.post('/paypal', async (req, res) => {
           res.status(500).json({ error: 'Error creating PayPal payment' });
         } else {
           console.log('Create Payment Response:', payment);
-          res.redirect(`/success?paymentId=${payment.id}&PayerID=${payment.payer.payer_info.payer_id}&total=${total}`);
           //res.redirect(payment.links[1].href);
-          //res.json({ paypalUrl: payment.links[1].href });
+          res.json({ paypalUrl: payment.links[1].href });
         }
       });
     } catch (error) {
@@ -84,7 +83,7 @@ app.post('/paypal', async (req, res) => {
             {
                 amount: {
                     currency: "USD",
-                    total: total.toString()
+                    total: 1
                 }
             }
         ]
