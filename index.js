@@ -25,10 +25,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/paypal", async (req, res) => {
-  //const {total} = req.body;
-const total = 10
-  // Ensure total is a number with two decimal places
- const formattedTotal = parseFloat(total).toFixed(2);
+  const {total} = req.body;
 
   const create_payment_json = {
       intent: "sale",
@@ -45,7 +42,7 @@ const total = 10
                   items: [
                       {
                         name: 'Order Payment',
-                        price: formattedTotal, // Convert to string
+                        price: total, // Convert to string
                         currency: 'USD',
                         quantity: 1,
                       }
@@ -53,7 +50,7 @@ const total = 10
               },
               amount: {
                   currency: "USD",
-                  total: formattedTotal
+                  total: total
               },
               description: 'Payment for order',
           }
