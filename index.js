@@ -73,9 +73,9 @@ app.post('/paypal', async (req, res) => {
   });
 
   app.get("/success", (req, res) => {
-    var PayerID = req.query.PayerID;
-    var paymentId = req.query.paymentId;
-    var execute_payment_json = {
+    const PayerID = req.query.PayerID;
+    const paymentId = req.query.paymentId;
+    const execute_payment_json = {
         payer_id: PayerID,
         transactions: [
             {
@@ -94,15 +94,13 @@ app.post('/paypal', async (req, res) => {
         } else {
             console.log("Get Payment Response");
             console.log(JSON.stringify(payment));
-            // Assuming payment was successful, navigate to the order successful page
-            res.redirect("/order-success"); // Redirect to the order successful page
         }
     });
 });
 
 // Define route for order successful page
 app.get("/order-success", (req, res) => {
-    res.render("order-success"); // Render the order successful page
+  res.json({ success: true });  // Render the order successful page
 });
 
 app.get("cancel", (req, res) => {
