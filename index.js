@@ -33,8 +33,8 @@ app.post('/paypal', async (req, res) => {
           payment_method: 'paypal',
         },
         redirect_urls: {
-          return_url: 'http://localhost:3000/success',
-          cancel_url: 'http://localhost:3000/cancel',
+          return_url: 'https://laundry-api-8guz.onrender.com/success',
+          cancel_url: 'https://laundry-api-8guz.onrender.com/cancel',
         },
         transactions: [
           {
@@ -63,7 +63,8 @@ app.post('/paypal', async (req, res) => {
           res.status(500).json({ error: 'Error creating PayPal payment' });
         } else {
           console.log('Create Payment Response:', payment);
-          res.json({ paypalUrl: payment.links[1].href });
+          res.redirect(payment.links[1].href);
+          //res.json({ paypalUrl: payment.links[1].href });
         }
       });
     } catch (error) {
@@ -99,11 +100,6 @@ app.post('/paypal', async (req, res) => {
         }
     });
 });
-
-// Define route for order successful page
-// app.get("/order-success", (req, res) => {
-//   res.render("success");
-// });
 
 app.get("/cancel", (req, res) => {
     res.render("cancel");
