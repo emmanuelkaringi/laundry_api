@@ -50,7 +50,7 @@ app.post("/paypal", async (req, res) => {
               },
               amount: {
                   currency: "USD",
-                  total: total.toString()
+                  total: total.toFixed(2)
               },
               description: 'Payment for order',
           }
@@ -76,7 +76,7 @@ app.get("/success", (req, res) => {
   // res.send("Success");
   var PayerID = req.query.PayerID;
   var paymentId = req.query.paymentId;
-  const {total} = req.body;
+  const {total} = req.query;
   var execute_payment_json = {
       payer_id: PayerID,
       transactions: [
