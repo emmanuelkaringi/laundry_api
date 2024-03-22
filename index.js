@@ -94,14 +94,15 @@ app.post('/paypal', async (req, res) => {
         } else {
             console.log("Get Payment Response");
             console.log(JSON.stringify(payment));
+            res.render("success");
         }
     });
 });
 
 // Define route for order successful page
-app.get("/order-success", (req, res) => {
-  res.render("success");
-});
+// app.get("/order-success", (req, res) => {
+//   res.render("success");
+// });
 
 app.get("/cancel", (req, res) => {
     res.render("cancel");
