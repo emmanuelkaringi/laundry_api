@@ -58,6 +58,8 @@ app.post("/paypal", (req, res) => {
       ]
   };
 
+  console.log("PayPal Payment Request:", create_payment_json);
+
   paypal.payment.create(create_payment_json, function(error, payment) {
       if (error) {
           throw error;
