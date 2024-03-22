@@ -25,8 +25,8 @@ app.get("/", (req, res) => {
 });
 
 app.post("/paypal", async (req, res) => {
-  const {total} = req.body;
-
+  //const {total} = req.body;
+const total = 10
   // Ensure total is a number with two decimal places
  const formattedTotal = parseFloat(total).toFixed(2);
 
