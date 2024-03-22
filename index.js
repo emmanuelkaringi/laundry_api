@@ -75,6 +75,7 @@ app.post('/paypal', async (req, res) => {
   app.get("/success", (req, res) => {
     const PayerID = req.query.PayerID;
     const paymentId = req.query.paymentId;
+    const total = req.query.total;
     const execute_payment_json = {
         payer_id: PayerID,
         transactions: [
