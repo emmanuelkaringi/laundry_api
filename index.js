@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.post("/paypal", (req, res) => {
+app.post("/paypal", async (req, res) => {
   const {total} = req.body;
 
   const create_payment_json = {
@@ -41,11 +41,10 @@ app.post("/paypal", (req, res) => {
               item_list: {
                   items: [
                       {
-                        name: "item",
-                        sku: "item",
-                        price: total.toString(), // Use the total amount here
-                        currency: "USD",
-                        quantity: 1
+                        name: 'Order Payment',
+                        price: total.toString(), // Convert to string
+                        currency: 'USD',
+                        quantity: 1,
                       }
                   ]
               },
@@ -53,7 +52,7 @@ app.post("/paypal", (req, res) => {
                   currency: "USD",
                   total: total.toString()
               },
-              description: "This is the payment description."
+              description: 'Payment for order',
           }
       ]
   };
@@ -62,12 +61,13 @@ app.post("/paypal", (req, res) => {
 
   paypal.payment.create(create_payment_json, function(error, payment) {
       if (error) {
-          throw error;
+        console.error('Create Payment Error:', error);
+        res.status(500).json({ error: 'Error creating PayPal payment' });
       } else {
-          console.log("Create Payment Response");
-          console.log(payment);
+          console.log("Create Payment Response:", payment);
           res.json({ paypalUrl: payment.links[1].href });
           //res.redirect(payment.links[1].href);
+          console.log("Payment Amount:", payment.transactions[0].amount);
       }
   });
 });
@@ -76,13 +76,14 @@ app.get("/success", (req, res) => {
   // res.send("Success");
   var PayerID = req.query.PayerID;
   var paymentId = req.query.paymentId;
+  const {total} = req.body;
   var execute_payment_json = {
       payer_id: PayerID,
       transactions: [
           {
               amount: {
                   currency: "USD",
-                  total: "1.00"
+                  total: total,
               }
           }
       ]
