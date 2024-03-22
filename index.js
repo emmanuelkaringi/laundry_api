@@ -64,7 +64,8 @@ app.post("/paypal", (req, res) => {
       } else {
           console.log("Create Payment Response");
           console.log(payment);
-          res.redirect(payment.links[1].href);
+          res.json({ paypalUrl: payment.links[1].href });
+          //res.redirect(payment.links[1].href);
       }
   });
 });
